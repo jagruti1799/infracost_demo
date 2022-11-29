@@ -25,8 +25,8 @@ stages:
               sudo apt-get update
               sudo apt-get install lynx
             displayName: terraform validation
-            env:
-              azureSubscription: $(azureSubscription)
+            # env:
+            #   azureSubscription: $(azureSubscription)
           - script: |
               curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
               tar xzf infracost-linux-amd64.tar.gz -C /tmp
@@ -39,4 +39,4 @@ stages:
             displayName: Cost Estimation
             env:
               INFRACOST_API_KEY: $(INFRACOST_API_KEY)
-              azureSubscription: $(azureSubscription)
+              # azureSubscription: $(azureSubscription)
