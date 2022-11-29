@@ -23,7 +23,7 @@ stages:
               terraform -version
               terraform init
               terraform plan
-        steps:
+            displayName: terraform validation
           - script: infracost --version
             displayName: Check infracost version
 
