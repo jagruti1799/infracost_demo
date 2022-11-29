@@ -18,12 +18,7 @@ stages:
             displayName: terraform install
             inputs:
               terraformVersion: 'latest'
-
-          - task: TerraformTaskV3@3
-            displayName: init
-            inputs:
-              provider: 'azurerm'
-              command: 'init'
-              backendServiceArm: 'Alpesh-personal-azure'
-
+          - script: |
+              terraform -version
+              terraform init
 
