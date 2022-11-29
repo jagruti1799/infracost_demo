@@ -9,9 +9,15 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- task: TerraformInstaller@0
-  displayName: 'Install Terraform'
-  inputs:
-    terraformVersion: 0.14.3
-  
+stages:
+  - stage: 'infracost testing'
+    jobs:
+      - job: 'Terraforminitandplan'
+        steps:
+          - task: Bash@3
+            displayName: 'terraform init'
+            inputs:
+              targetType: 'inline'
+              script: |
+                terraform init
+                terraform plan
