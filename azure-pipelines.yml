@@ -24,10 +24,5 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'init'
-          - task: TerraformTaskV3@3
-            displayName: plan
-            inputs:
-              provider: 'azurerm'
-              command: 'plan'
-              backendServiceArm: 'Alpesh-personal-azure'
+
 
