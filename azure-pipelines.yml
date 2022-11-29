@@ -22,12 +22,16 @@ stages:
               az login
               terraform -version
               terraform init
-              terraform plan
+              terraform plan -out tfplan.binary
             displayName: terraform validation
           - script: |
-              curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
-              tar xzf infracost-linux-amd64.tar.gz -C /tmp
-              mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
+              # curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
+              # tar xzf infracost-linux-amd64.tar.gz -C /tmp
+              # mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
               infracost --version
             displayName: Check infracost version
+          - script: |
+              terraform show -json tfplan.binary > plan.json
+              infracost breakdown --path plan.json 
+            displayName: Total cost of created resources
 
