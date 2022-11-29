@@ -14,7 +14,7 @@ stages:
     jobs:
       - job: Terraform_Plan
         displayName: Terraform Plan 
-        
       - template: terraform.yml@Yaml_Templates
-          terraform_init:true
-          terraform_plan:true
+        parameters:
+              terraform_init: true
+              terraform_plan: true
