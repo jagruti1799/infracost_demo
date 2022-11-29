@@ -25,9 +25,9 @@ stages:
               terraform plan -out tfplan.binary
             displayName: terraform validation
           - script: |
-              # curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
-              # tar xzf infracost-linux-amd64.tar.gz -C /tmp
-              # mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
+              curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
+              tar xzf infracost-linux-amd64.tar.gz -C /tmp
+              mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
               infracost --version
             displayName: Check infracost version
           - script: |
