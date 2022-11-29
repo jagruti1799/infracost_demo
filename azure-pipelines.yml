@@ -14,12 +14,17 @@ stages:
     jobs:
       - job: infracostazuredemo
         steps:
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'Alpesh-Personal-Azure'
+              scriptType: bash
           - task: TerraformInstaller@0
             displayName: terraform install
             inputs:
               terraformVersion: 'latest'
+              
           - script: |
-              az login --service-principal -u $(client id) -p $(client_secret)--tenant $(tenent_id)
+             # az login --service-principal -u $(client id) -p $(client_secret)--tenant $(tenent_id)
               terraform -version
               terraform init
               terraform plan -out tfplan.binary
