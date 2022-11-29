@@ -18,6 +18,8 @@ stages:
             inputs:
               azureSubscription: 'Alpesh-Personal-Azure'
               scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: 'az group list -o table'
           - task: TerraformInstaller@0
             displayName: terraform install
             inputs:
