@@ -33,5 +33,5 @@ stages:
           - script: |
               terraform show -json tfplan.binary > plan.json
               infracost breakdown --path plan.json 
-            displayName: Total cost of created resources
+            displayName: Cost Estimation
 
