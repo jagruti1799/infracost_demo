@@ -24,6 +24,10 @@ stages:
               terraform init
               terraform plan
             displayName: terraform validation
-          - script: infracost --version
+          - script: |
+              curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
+              tar xzf infracost-linux-amd64.tar.gz -C /tmp
+              mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
+              infracost --version
             displayName: Check infracost version
 
