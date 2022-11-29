@@ -10,9 +10,9 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-  - stage: tfvalidate
+  - stage: tfinstall
     jobs:
-      - job: validate
+      - job: installation
         steps:
           - task: TerraformInstaller@0
             displayName: terraform install
@@ -29,3 +29,5 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'plan'
+              backendServiceArm: 'Alpesh-personal-azure'
+
