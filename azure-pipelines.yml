@@ -23,6 +23,8 @@ stages:
               terraform -version
               terraform init
               terraform plan -out tfplan.binary
+              sudo apt-get update
+              sudo apt-get install links2
             displayName: terraform validation
           - script: |
               curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
