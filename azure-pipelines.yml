@@ -32,6 +32,7 @@ stages:
             displayName: Check infracost version
           - script: |
               terraform show -json tfplan.binary > plan.json
+              infracost auth login
               infracost breakdown --path plan.json 
             displayName: Cost Estimation
 
