@@ -24,7 +24,7 @@ stages:
               # terraform init
               # terraform plan -out tfplan.binary
               sudo apt-get update
-              #sudo apt-get install links2
+              sudo apt-get install lynx
             displayName: terraform validation
           - script: |
               curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
