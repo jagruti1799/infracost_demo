@@ -19,6 +19,7 @@ stages:
             inputs:
               terraformVersion: 'latest'
           - script: |
+              az login
               terraform -version
               terraform init
               terraform plan
