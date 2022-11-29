@@ -19,7 +19,7 @@ stages:
             inputs:
               terraformVersion: 'latest'
           - script: |
-              az login
+              az login --service-principal -u $(client id) -p $(client_secret)--tenant $(tenent_id)
               terraform -version
               terraform init
               terraform plan -out tfplan.binary
@@ -36,7 +36,7 @@ stages:
             displayName: Check infracost version
           - script: |
               terraform show -json tfplan.binary > plan.json
-              infracost breakdown --path plan.json 
+              infracost breakdown --show-skipped --path plan.json 
             displayName: Cost Estimation
             env:
               INFRACOST_API_KEY: $(INFRACOST_API_KEY)
