@@ -12,7 +12,7 @@ pool:
 stages:
   - stage: tfinstall
     jobs:
-      - job: infracost-azure-demo
+      - job: infracostazuredemo
         steps:
           - task: TerraformInstaller@0
             displayName: terraform install
