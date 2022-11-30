@@ -65,17 +65,18 @@ stages:
               infracost breakdown --show-skipped --path=.
             displayName: Cost estimation 
             env:
-               INFRACOST_API_KEY: $(INFRACOST_API_KEY)
-          - task: TerraformTaskV3@3
-            inputs:
-              provider: 'azurerm'
-              command: 'destroy'
-              backendServiceArm: 'Alpesh-Personal-Azure'
-              backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
-              backendAzureRmStorageAccountName: tfstate
-              backendAzureRmContainerName: tfstate
-              backendAzureRmKey: tfstate
-              environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
+                INFRACOST_API_KEY: $(INFRACOST_API_KEY)
+                
+          # - task: TerraformTaskV3@3
+          #   inputs:
+          #     provider: 'azurerm'
+          #     command: 'destroy'
+          #     backendServiceArm: 'Alpesh-Personal-Azure'
+          #     backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
+          #     backendAzureRmStorageAccountName: tfstate
+          #     backendAzureRmContainerName: tfstate
+          #     backendAzureRmKey: tfstate
+          #     environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
 
 
 
