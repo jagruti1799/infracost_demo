@@ -51,7 +51,7 @@ stages:
           - task: ManualValidation@0
             inputs:
              notifyUsers: 'jagrutigour1799@gmail.com'
-             instructions: 'Please approve'
+             instructions: 'Please approve to deploy infrastructure'
              onTimeout: 'resume'
              
       - job: AfterValidation
@@ -71,7 +71,7 @@ stages:
           - task: TerraformTaskV3@3 
             inputs:
               provider: 'azurerm'
-              command: 'validate'
+              command: 'apply'
               backendServiceArm: 'Alpesh-Personal-Azure'
               backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
               backendAzureRmStorageAccountName: tfstate
@@ -92,16 +92,16 @@ stages:
             env:
                 INFRACOST_API_KEY: $(INFRACOST_API_KEY)
                 
-          # - task: TerraformTaskV3@3
-          #   inputs:
-          #     provider: 'azurerm'
-          #     command: 'destroy'
-          #     backendServiceArm: 'Alpesh-Personal-Azure'
-          #     backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
-          #     backendAzureRmStorageAccountName: tfstate
-          #     backendAzureRmContainerName: tfstate
-          #     backendAzureRmKey: tfstate
-          #     environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
+          - task: TerraformTaskV3@3
+            inputs:
+              provider: 'azurerm'
+              command: 'destroy'
+              backendServiceArm: 'Alpesh-Personal-Azure'
+              backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
+              backendAzureRmStorageAccountName: tfstate
+              backendAzureRmContainerName: tfstate
+              backendAzureRmKey: tfstate
+              environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
 
 
 
