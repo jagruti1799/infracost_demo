@@ -10,12 +10,12 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-  - stage: tfinstall
+  - stage: installation and testing
     jobs:
       - job: infracostazuredemo
         steps:
           - task: TerraformInstaller@0
-            displayName: terraform install
+            displayName: Install terraform
             inputs:
               terraformVersion: 'latest'
                
