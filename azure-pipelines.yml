@@ -93,7 +93,8 @@ stages:
             env:
                 INFRACOST_API_KEY: $(INFRACOST_API_KEY)
                 
-          - task: TerraformTaskV3@3
+          - task: TerraformTaskV3@3 
+            displayName: terraform destroy
             inputs:
               provider: 'azurerm'
               command: 'destroy'
