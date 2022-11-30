@@ -50,16 +50,16 @@ stages:
               backendAzureRmKey: tfstate
               environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
            
-          - task: TerraformTaskV3@3
-            inputs:
-              provider: 'azurerm'
-              command: 'apply'
-              backendServiceArm: 'Alpesh-Personal-Azure'
-              backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
-              backendAzureRmStorageAccountName: tfstate
-              backendAzureRmContainerName: tfstate
-              backendAzureRmKey: tfstate
-              environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
+          # - task: TerraformTaskV3@3
+          #   inputs:
+          #     provider: 'azurerm'
+          #     command: 'apply'
+          #     backendServiceArm: 'Alpesh-Personal-Azure'
+          #     backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
+          #     backendAzureRmStorageAccountName: tfstate
+          #     backendAzureRmContainerName: tfstate
+          #     backendAzureRmKey: tfstate
+          #     environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
             
           - script: |
               infracost breakdown --show-skipped --path=.
