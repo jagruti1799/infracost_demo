@@ -18,34 +18,21 @@ stages:
             displayName: terraform install
             inputs:
               terraformVersion: 'latest'
-
-          - task: AzureCLI@2
-            inputs:
-              azureSubscription: 'Alpesh-Personal-Azure'
-              scriptType: 'bash'
-              scriptLocation: 'inlineScript'
-              inlineScript: 'terraform init'
-          
-          - task: AzureCLI@2
-            inputs:
-              azureSubscription: 'Alpesh-Personal-Azure'
-              scriptType: 'bash'
-              scriptLocation: 'inlineScript'
-              inlineScript: 'terraform plan -out tfplan.binary'
-
                
-          # - script: |
-          #     curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
-          #     tar xzf infracost-linux-amd64.tar.gz -C /tmp
-          #     mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
-          #     infracost --version
-          #   displayName: Check infracost version
-          # - script: |
-          #     terraform apply 
-          #     terraform show -json tfplan.binary > plan.json
-          #     infracost breakdown --show-skipped --path plan.json 
-          #     terraform apply
-          #   displayName: Cost Estimation
-          #   env:
-          #     INFRACOST_API_KEY: $(INFRACOST_API_KEY)
+          - script: |
+              curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
+              tar xzf infracost-linux-amd64.tar.gz -C /tmp
+              mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
+              infracost --version
+            displayName: Check infracost version
+          - script: |
+              az account set --subscription e80e7460-705b-409d-a1e0-ffda7a414def
+              terraform init
+              terrafor plan -out tfplan.binary
+          - script: |
+              terraform show -json tfplan.binary > plan.json
+              infracost breakdown --show-skipped --path plan.json 
+            displayName: Cost Estimation
+            env:
+              INFRACOST_API_KEY: $(INFRACOST_API_KEY)
 
