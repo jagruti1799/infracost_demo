@@ -55,19 +55,18 @@ stages:
         pool: server
         timeoutInMinutes: 5
         steps:
-          - task: ManualValidation@0
-            timeoutinminutes: 2
-            inputs:
-              notifyUsers: |
-                jagrutigour1799@gmail.com
-              instructions: 'Please approve'
-              onTimeout: 'resume'
-
+          
+         - task: ManualValidation@0
+           inputs:
+             notifyUsers: 'jagrutigour1799@gmail.com'
+             instructions: 'Please approve'
+             onTimeout: 'resume'
+             
       - job: AfterValidation
         displayName: After validation
         dependsOn: waitForValidation
         steps:
-          - task: TerraformTaskV3@3
+          - task: TerraformTaskV3@3 
             inputs:
               provider: 'azurerm'
               command: 'validate'
