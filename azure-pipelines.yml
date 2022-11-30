@@ -49,17 +49,34 @@ stages:
               backendAzureRmContainerName: tfstate
               backendAzureRmKey: tfstate
               environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
-           
-          # - task: TerraformTaskV3@3
-          #   inputs:
-          #     provider: 'azurerm'
-          #     command: 'apply'
-          #     backendServiceArm: 'Alpesh-Personal-Azure'
-          #     backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
-          #     backendAzureRmStorageAccountName: tfstate
-          #     backendAzureRmContainerName: tfstate
-          #     backendAzureRmKey: tfstate
-          #     environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
+      - job: waitForValidation
+        displayName: Waiting for approval
+        dependsOn: infracostdemo
+        pool: server
+        timeoutInMinutes: 5
+        steps:
+          - task: ManualValidation@0
+            timeoutinminutes: 2
+            inputs:
+              notifyUsers: |
+                jagrutigour1799@gmail.com
+              instructions: 'Please approve'
+              onTimeout: 'resume'
+
+      - job: AfterValidation
+        displayName: After validation
+        dependsOn: waitForValidation
+        steps:
+          - task: TerraformTaskV3@3
+            inputs:
+              provider: 'azurerm'
+              command: 'validate'
+              backendServiceArm: 'Alpesh-Personal-Azure'
+              backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
+              backendAzureRmStorageAccountName: tfstate
+              backendAzureRmContainerName: tfstate
+              backendAzureRmKey: tfstate
+              environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
             
           - script: |
               infracost breakdown --show-skipped --path=.
