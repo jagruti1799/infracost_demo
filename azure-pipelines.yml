@@ -26,9 +26,10 @@ stages:
               infracost --version
             displayName: Check infracost version
           - script: |
+              az login
               terraform init
-              az account list
               terrafor plan -out tfplan.binary
+            displayName: Setup az account
           - script: |
               terraform show -json tfplan.binary > plan.json
               infracost breakdown --show-skipped --path plan.json 
