@@ -43,17 +43,6 @@ stages:
               backendAzureRmKey: tfstate
               environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
 
-      - job: waitForValidation
-        displayName: Waiting for approval
-        dependsOn: installation
-        pool: server
-        timeoutInMinutes: 5
-        steps:
-          - task: ManualValidation@0
-            inputs:
-             notifyUsers: 'jagrutigour1799@gmail.com'
-             instructions: 'Please approve to deploy infrastructure'
-             onTimeout: 'resume'
           - script: |
               curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
               tar xzf infracost-linux-amd64.tar.gz -C /tmp
@@ -66,6 +55,18 @@ stages:
             displayName: Cost estimation 
             env:
                 INFRACOST_API_KEY: $(INFRACOST_API_KEY)
+                
+      - job: waitForValidation
+        displayName: Waiting for approval
+        dependsOn: installation
+        pool: server
+        timeoutInMinutes: 5
+        steps:
+          - task: ManualValidation@0
+            inputs:
+             notifyUsers: 'jagrutigour1799@gmail.com'
+             instructions: 'Please approve to deploy infrastructure'
+             onTimeout: 'resume'
           # - task: TerraformTaskV3@3
           #   displayName: terraform init
           #   inputs:
