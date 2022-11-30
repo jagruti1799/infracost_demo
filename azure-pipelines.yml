@@ -101,11 +101,10 @@ stages:
           #   displayName: Cost estimation 
           #   env:
           #       INFRACOST_API_KEY: $(INFRACOST_API_KEY)             
-      # - job: AfterValidation
-      #   displayName: After validation
-      #   dependsOn: waitForValidation
-      #   steps:
-
+      - job: AfterValidation
+        displayName: After validation
+        dependsOn: waitForValidation
+        steps:
           - task: TerraformTaskV3@3 
             displayName: terraform destroy
             inputs:
