@@ -1,4 +1,10 @@
 # Starter pipeline
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'Alpesh-Personal-Azure'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'terraform plan -out tfplan.binary'
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
@@ -31,6 +37,13 @@ stages:
               scriptType: 'bash'
               scriptLocation: 'inlineScript'
               inlineScript: 'terraform init'
+          
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'Alpesh-Personal-Azure'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: 'terraform plan -out tfplan.binary'
 
                
           # - script: |
