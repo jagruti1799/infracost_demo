@@ -71,7 +71,8 @@ stages:
               terraform apply 
               terraform show -json tfplan.binary > plan.json
               infracost breakdown --show-skipped --path plan.json 
+              terraform apply
             displayName: Cost Estimation
             env:
               INFRACOST_API_KEY: $(INFRACOST_API_KEY)
-              azureSubscription: 'Alpesh-Personal-Azure'
+
