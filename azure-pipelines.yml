@@ -22,6 +22,7 @@ stages:
 
 
           - task: TerraformTaskV3@3
+            displayName: terraform init
             inputs:
               provider: 'azurerm'
               command: 'init'
@@ -31,15 +32,34 @@ stages:
               backendAzureRmContainerName: tfstate
               backendAzureRmKey: tfstate
           - task: TerraformTaskV3@3
+            displayName: terraform plan
             inputs:
               provider: 'azurerm'
-              command: 'plan'
+              command: 'custom'
+              customCommand: 'terraform plan -out tfplan.binary'
+              outputTo: 'console'
               backendServiceArm: 'Alpesh-Personal-Azure'
               backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
               backendAzureRmStorageAccountName: tfstate
               backendAzureRmContainerName: tfstate
               backendAzureRmKey: tfstate
               environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
+              
+          - script: |
+              curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
+              tar xzf infracost-linux-amd64.tar.gz -C /tmp
+              mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
+              infracost --version
+            displayName: Check infracost version
+
+
+
+
+
+
+
+
+
           # - script: |
           #     curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
           #     tar xzf infracost-linux-amd64.tar.gz -C /tmp
@@ -49,7 +69,8 @@ stages:
           # - script: |
           #     az login
           #     terraform init
-          #     terraform plan -out tfplan.binary
+
+  
           #   displayName: Setup az account
           # - script: |
           #     terraform show -json tfplan.binary > plan.json
