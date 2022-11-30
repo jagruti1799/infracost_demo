@@ -25,16 +25,16 @@ stages:
             inputs:
               terraformVersion: 'latest'
           
-          - task: TerraformTaskV3@3
-            inputs:
-               provider: 'azurerm'
-               command: 'init'
-               environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
-          - task: TerraformTaskV3@3
-            inputs:
-               provider: 'azurerm'
-               command: 'plan'
-               environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
+          # - task: TerraformTaskV3@3
+          #   inputs:
+          #      provider: 'azurerm'
+          #      command: 'init'
+          #      environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
+          # - task: TerraformTaskV3@3
+          #   inputs:
+          #      provider: 'azurerm'
+          #      command: 'plan'
+          #      environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
               
           - script: |
               # az login --service-principal -u ayushjain18@gnu.ac.in --password=qazWSXedc123!@# --tenant 745961a7-d85f-426e-bd60-5485597f872c --allow-no-subscriptions
