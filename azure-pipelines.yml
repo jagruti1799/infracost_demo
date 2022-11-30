@@ -36,4 +36,11 @@ stages:
             displayName: Cost Estimation
             env:
               INFRACOST_API_KEY: $(INFRACOST_API_KEY)
+          - task: ManualValidation@0
+            timeoutInMinutes: 2
+            inputs:
+              notifyUsers: |
+                jagrutigour1799@gmail.com
+                jagrutigour1799@outlook.com
+              instructions: 'Approve the deployment to Prod'
 
