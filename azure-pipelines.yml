@@ -52,7 +52,8 @@ stages:
               infracost --version
               infracost breakdown --show-skipped --path=.
             displayName: Check infracost version
-
+            env:
+               INFRACOST_API_KEY: $(INFRACOST_API_KEY)
 
 
 
