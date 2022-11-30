@@ -19,28 +19,48 @@ stages:
             inputs:
               terraformVersion: 'latest'
                
-          - script: |
-              curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
-              tar xzf infracost-linux-amd64.tar.gz -C /tmp
-              mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
-              infracost --version
-            displayName: Check infracost version
-          - script: |
-              az login
-              terraform init
-              terraform plan -out tfplan.binary
-            displayName: Setup az account
-          - script: |
-              terraform show -json tfplan.binary > plan.json
-              infracost breakdown --show-skipped --path plan.json 
-            displayName: Cost Estimation
-            env:
-              INFRACOST_API_KEY: $(INFRACOST_API_KEY)
 
-          - task: ManualValidation@0
-            timeoutInMinutes: 2
+
+          - task: TerraformTaskV3@3
             inputs:
-             notifyUsers: 'jagrutigour1799@gmail.com'
-             instructions: 'Hi please apply to approve'
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'Alpesh-Personal-Azure'
+              backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
+              backendAzureRmStorageAccountName: tfstate
+              backendAzureRmContainerName: tfstate
+              backendAzureRmKey: tfstate
+          - task: TerraformTaskV3@3
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              backendServiceArm: 'Alpesh-Personal-Azure'
+              backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
+              backendAzureRmStorageAccountName: tfstate
+              backendAzureRmContainerName: tfstate
+              backendAzureRmKey: tfstate
+          # - script: |
+          #     curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
+          #     tar xzf infracost-linux-amd64.tar.gz -C /tmp
+          #     mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
+          #     infracost --version
+          #   displayName: Check infracost version
+          # - script: |
+          #     az login
+          #     terraform init
+          #     terraform plan -out tfplan.binary
+          #   displayName: Setup az account
+          # - script: |
+          #     terraform show -json tfplan.binary > plan.json
+          #     infracost breakdown --show-skipped --path plan.json 
+          #   displayName: Cost Estimation
+          #   env:
+          #     INFRACOST_API_KEY: $(INFRACOST_API_KEY)
+
+          # - task: ManualValidation@0
+          #   timeoutInMinutes: 2
+          #   inputs:
+          #    notifyUsers: 'jagrutigour1799@gmail.com'
+          #    instructions: 'Hi please apply to approve'
 
             
