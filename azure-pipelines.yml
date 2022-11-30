@@ -50,18 +50,14 @@ stages:
               backendAzureRmKey: tfstate
               environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
               
-          - script: |
-              infracost breakdown --show-skipped --path=.
-            displayName: Cost estimation 
-            env:
-               INFRACOST_API_KEY: $(INFRACOST_API_KEY)
+
  
-          - task: ManualValidation@0
-            timeoutInMinutes: 5
-            inputs:
-             instructions: "Hi, please validate"
-             notifyUsers: jagrutigour1799@gmail.com
-             onTimeout: resume
+          # - task: ManualValidation@0
+          #   timeoutInMinutes: 5
+          #   inputs:
+          #    instructions: "Hi, please validate"
+          #    notifyUsers: jagrutigour1799@gmail.com
+          #    onTimeout: resume
            
           - task: TerraformTaskV3@3
             inputs:
@@ -73,7 +69,22 @@ stages:
               backendAzureRmContainerName: tfstate
               backendAzureRmKey: tfstate
               environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
-
+            
+          - script: |
+              infracost breakdown --show-skipped --path=.
+            displayName: Cost estimation 
+            env:
+               INFRACOST_API_KEY: $(INFRACOST_API_KEY)
+          - task: TerraformTaskV3@3
+            inputs:
+              provider: 'azurerm'
+              command: 'destroy'
+              backendServiceArm: 'Alpesh-Personal-Azure'
+              backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
+              backendAzureRmStorageAccountName: tfstate
+              backendAzureRmContainerName: tfstate
+              backendAzureRmKey: tfstate
+              environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
 
 
 
