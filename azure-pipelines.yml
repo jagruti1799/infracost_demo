@@ -48,6 +48,16 @@ stages:
               instructions: 'pause'
               emailRecipients: 'jagrutigour1799@gmail.com'
               onTimeout: 'resume'
+          - task: TerraformTaskV3@3
+            displayName: terraform init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'Alpesh-Personal-Azure'
+              backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
+              backendAzureRmStorageAccountName: tfstate
+              backendAzureRmContainerName: tfstate
+              backendAzureRmKey: tfstate      
       - job: AfterValidation
         displayName: After validation
         dependsOn: waitForValidation
