@@ -25,13 +25,6 @@ stages:
               mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
               infracost --version
             displayName: Install Infracost
-
-      - job: waitForValidation
-        displayName: Waiting for approval
-        dependsOn: infracostazuredemo
-        pool: server
-        timeoutInMinutes: 5
-        steps:
           - task: TerraformTaskV3@3
             displayName: terraform init
             inputs:
@@ -55,6 +48,12 @@ stages:
               backendAzureRmContainerName: tfstate
               backendAzureRmKey: tfstate
               environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
+      - job: waitForValidation
+        displayName: Waiting for approval
+        dependsOn: infracostazuredemo
+        pool: server
+        timeoutInMinutes: 5
+        steps:
           - task: ManualValidation@0
             inputs:
              notifyUsers: 'jagrutigour1799@gmail.com'
