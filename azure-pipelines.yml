@@ -24,16 +24,13 @@ stages:
             displayName: terraform install
             inputs:
               terraformVersion: 'latest'
-          - task: TerraformTaskV3@3
-            inputs:
-              provider: 'azurerm'
-              command: 'init'
+
           - task: AzureCLI@2
             inputs:
               azureSubscription: 'Alpesh-Personal-Azure'
               scriptType: 'bash'
               scriptLocation: 'inlineScript'
-              inlineScript: 'terraform plan -out tfplan.binary'
+              inlineScript: 'terraform init'
 
                
           # - script: |
