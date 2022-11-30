@@ -52,7 +52,7 @@ resource "azurerm_virtual_machine" "vm" {
    provisioner "local-exec" {
     command = "chmod 600 webkey.pem"
   }
-
+}
 
 resource "azurerm_lb" "nginx_lb" {
   name                = "ngnixlb"
