@@ -28,6 +28,11 @@ stages:
           - task: TerraformTaskV3@3
             inputs:
                provider: 'azurerm'
+               command: 'init'
+               environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
+          - task: TerraformTaskV3@3
+            inputs:
+               provider: 'azurerm'
                command: 'plan'
                environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
               
