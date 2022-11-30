@@ -28,7 +28,7 @@ stages:
           - script: |
               az login
               terraform init
-              terrafor plan -out tfplan.binary
+              terraform plan -out tfplan.binary
             displayName: Setup az account
           - script: |
               terraform show -json tfplan.binary > plan.json
