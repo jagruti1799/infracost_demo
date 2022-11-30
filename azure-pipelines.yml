@@ -26,7 +26,7 @@ stages:
               infracost --version
             displayName: Check infracost version
           - script: |
-              az account set --subscription e80e7460-705b-409d-a1e0-ffda7a414def
+              az account set --subscription 573fc463-a743-481f-8688-28a35876fa68
               terraform init
               terrafor plan -out tfplan.binary
           - script: |
