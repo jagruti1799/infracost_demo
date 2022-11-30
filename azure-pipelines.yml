@@ -50,7 +50,7 @@ stages:
               environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
       - job: waitForValidation
         displayName: Waiting for approval
-        dependsOn: infracostazuredemo
+        dependsOn: installation
         pool: server
         timeoutInMinutes: 5
         steps:
