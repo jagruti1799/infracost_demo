@@ -14,31 +14,31 @@ stages:
     jobs:
       - job: infracostazuredemo
         steps:
-          - task: AzureCLI@2
-            inputs:
-              azureSubscription: 'Alpesh-Personal-Azure'
-              scriptType: bash
-              scriptLocation: inlineScript
-              inlineScript: 'az group list -o table'
+          # - task: AzureCLI@2
+          #   inputs:
+          #     azureSubscription: 'Alpesh-Personal-Azure'
+          #     scriptType: bash
+          #     scriptLocation: inlineScript
+          #     inlineScript: 'az group list -o table'
           - task: TerraformInstaller@0
             displayName: terraform install
             inputs:
               terraformVersion: 'latest'
 
-          - task: TerraformTaskV3@3
-            inputs:
-              provider: 'azurerm'
-              command: 'init'
-              backendServiceArm: 'Alpesh-Personal-Azure'
-              backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
-          - task: TerraformTaskV3@3
-            inputs:
-              provider: 'azurerm'
-              command: 'custom'
-              customCommand: 'terraform plan -out tfplan.binary'
-              outputTo: 'console'
-              backendServiceArm: 'Alpesh-Personal-Azure'
-              backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
+          # - task: TerraformTaskV3@3
+          #   inputs:
+          #     provider: 'azurerm'
+          #     command: 'init'
+          #     backendServiceArm: 'Alpesh-Personal-Azure'
+          #     backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
+          # - task: TerraformTaskV3@3
+          #   inputs:
+          #     provider: 'azurerm'
+          #     command: 'custom'
+          #     customCommand: 'terraform plan -out tfplan.binary'
+          #     outputTo: 'console'
+          #     backendServiceArm: 'Alpesh-Personal-Azure'
+          #     backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
           
           # - task: TerraformTaskV3@3
           #   inputs:
@@ -51,26 +51,27 @@ stages:
           #      command: 'plan'
           #      environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
               
-          # - script: |
-          #     az login 
-          #     terraform -version
-          #     terraform init
-          #     sudo apt-get update
-          #     sudo apt-get install lynx
-          #   displayName: terraform validation
-          #   env:
-          #      azureSubscription: 'Alpesh-Personal-Azure'
+          - script: |
+              az login 
+              terraform -version
+              terraform init
+              sudo apt-get update
+              sudo apt-get install lynx
+            displayName: terraform validation
+            env:
+               azureSubscription: 'Alpesh-Personal-Azure'
                
-          # - script: |
-          #     curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
-          #     tar xzf infracost-linux-amd64.tar.gz -C /tmp
-          #     mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
-          #     infracost --version
-          #   displayName: Check infracost version
-          # - script: |
-          #     terraform show -json tfplan.binary > plan.json
-          #     infracost breakdown --show-skipped --path plan.json 
-          #   displayName: Cost Estimation
-          #   env:
-          #     INFRACOST_API_KEY: $(INFRACOST_API_KEY)
-          #     azureSubscription: 'Alpesh-Personal-Azure'
+          - script: |
+              curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
+              tar xzf infracost-linux-amd64.tar.gz -C /tmp
+              mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
+              infracost --version
+            displayName: Check infracost version
+          - script: |
+              terraform apply 
+              terraform show -json tfplan.binary > plan.json
+              infracost breakdown --show-skipped --path plan.json 
+            displayName: Cost Estimation
+            env:
+              INFRACOST_API_KEY: $(INFRACOST_API_KEY)
+              azureSubscription: 'Alpesh-Personal-Azure'
