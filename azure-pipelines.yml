@@ -18,29 +18,6 @@ stages:
             displayName: Install terraform
             inputs:
               terraformVersion: 'latest'
-          # - task: TerraformTaskV3@3
-          #   displayName: terraform init
-          #   inputs:
-          #     provider: 'azurerm'
-          #     command: 'init'
-          #     backendServiceArm: 'Alpesh-Personal-Azure'
-          #     backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
-          #     backendAzureRmStorageAccountName: tfstate
-          #     backendAzureRmContainerName: tfstate
-          #     backendAzureRmKey: tfstate
-          # - task: TerraformTaskV3@3
-          #   displayName: terraform plan
-          #   inputs:
-          #     provider: 'azurerm'
-          #     command: 'custom'
-          #     customCommand: 'plan'
-          #     outputTo: 'console'
-          #     backendServiceArm: 'Alpesh-Personal-Azure'
-          #     backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
-          #     backendAzureRmStorageAccountName: tfstate
-          #     backendAzureRmContainerName: tfstate
-          #     backendAzureRmKey: tfstate
-          #     environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
 
           - script: |
               curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
@@ -58,7 +35,7 @@ stages:
       - job: waitForValidation
         displayName: Waiting for approval
         dependsOn: installation
-        pool: server
+        #pool: server
         timeoutInMinutes: 5
         steps:
           - task: ManualValidation@0
