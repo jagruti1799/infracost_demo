@@ -3,8 +3,6 @@ resource "azurerm_virtual_network" "vnet" {
   address_space       = ["10.0.0.0/16"]
   location            = var.location
   resource_group_name = "EIC-DevOps-RG"
-
-  depends_on = [azurerm_resource_group.rg]
 }
 
 resource "azurerm_public_ip" "publicip" {
@@ -12,7 +10,6 @@ resource "azurerm_public_ip" "publicip" {
   location            = var.location
   resource_group_name = "EIC-DevOps-RG"
   allocation_method   = "Static"
-  depends_on          = [azurerm_resource_group.rg]
 }
 
 resource "azurerm_subnet" "subnet" {
@@ -22,7 +19,6 @@ resource "azurerm_subnet" "subnet" {
   address_prefixes     = ["10.0.2.0/24"]
 
   depends_on = [azurerm_virtual_network.vnet,
-    azurerm_resource_group.rg,
   azurerm_public_ip.publicip]
 }
 
