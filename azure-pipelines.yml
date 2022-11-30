@@ -12,7 +12,7 @@ pool:
 stages:
   - stage: installation_and_testing
     jobs:
-      - job: infracostazuredemo
+      - job: installation
         steps:
           - task: TerraformInstaller@0
             displayName: Install terraform
@@ -26,6 +26,12 @@ stages:
               infracost --version
             displayName: Install Infracost
 
+      - job: waitForValidation
+        displayName: Waiting for approval
+        dependsOn: infracostazuredemo
+        pool: server
+        timeoutInMinutes: 5
+        steps:
           - task: TerraformTaskV3@3
             displayName: terraform init
             inputs:
@@ -49,15 +55,8 @@ stages:
               backendAzureRmContainerName: tfstate
               backendAzureRmKey: tfstate
               environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
-      - job: waitForValidation
-        displayName: Waiting for approval
-        dependsOn: infracostazuredemo
-        pool: server
-        timeoutInMinutes: 5
-        steps:
-          
-         - task: ManualValidation@0
-           inputs:
+          - task: ManualValidation@0
+            inputs:
              notifyUsers: 'jagrutigour1799@gmail.com'
              instructions: 'Please approve'
              onTimeout: 'resume'
