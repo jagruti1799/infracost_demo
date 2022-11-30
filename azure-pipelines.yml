@@ -13,8 +13,6 @@ stages:
   - stage: installation_and_testing
     jobs:
       - job: installation
-        pool: server
-        timeoutInMinutes: 5
         steps:
           - task: TerraformInstaller@0
             displayName: Install terraform
@@ -33,24 +31,18 @@ stages:
             displayName: Cost estimation 
             env:
                 INFRACOST_API_KEY: $(INFRACOST_API_KEY)
-
+                
+      - job: waitForValidation
+        displayName: Waiting for approval
+        dependsOn: installation
+        pool: server
+        timeoutInMinutes: 5
+        steps:
           - task: ManualValidation@0
             inputs:
              notifyUsers: 'jagrutigour1799@gmail.com'
              instructions: 'Please approve to deploy infrastructure'
              onTimeout: 'resume'
-                
-      # - job: waitForValidation
-      #   displayName: Waiting for approval
-      #   dependsOn: installation
-      #   pool: server
-      #   timeoutInMinutes: 5
-      #   steps:
-          # - task: ManualValidation@0
-          #   inputs:
-          #    notifyUsers: 'jagrutigour1799@gmail.com'
-          #    instructions: 'Please approve to deploy infrastructure'
-          #    onTimeout: 'resume'
 
       - job: AfterValidation
         displayName: After validation
