@@ -19,12 +19,6 @@ stages:
             inputs:
               terraformVersion: 'latest'
                
-          - script: |
-              curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
-              tar xzf infracost-linux-amd64.tar.gz -C /tmp
-              mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
-              infracost --version
-            displayName: Install Infracost
           - task: TerraformTaskV3@3
             displayName: terraform init
             inputs:
@@ -84,6 +78,13 @@ stages:
               backendAzureRmContainerName: tfstate
               backendAzureRmKey: tfstate
               environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
+          
+          - script: |
+              curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
+              tar xzf infracost-linux-amd64.tar.gz -C /tmp
+              mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
+              infracost --version
+            displayName: Install Infracost
 
           - script: |
               infracost breakdown --show-skipped --path=.
