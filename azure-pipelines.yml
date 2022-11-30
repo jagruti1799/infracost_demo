@@ -24,6 +24,14 @@ stages:
             displayName: terraform install
             inputs:
               terraformVersion: 'latest'
+
+          - task: TerraformTaskV3@3
+            inputs:
+            provider: 'azurerm'
+            command: 'custom'
+            customCommand: 'terraform plan -out tfplan.binary'
+            outputTo: 'console'
+            environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
           
           # - task: TerraformTaskV3@3
           #   inputs:
@@ -36,16 +44,15 @@ stages:
           #      command: 'plan'
           #      environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
               
-          - script: |
-              az login 
-              terraform -version
-              terraform init
-              terraform plan -out tfplan.binary
-              sudo apt-get update
-              sudo apt-get install lynx
-            displayName: terraform validation
-            env:
-               azureSubscription: 'Alpesh-Personal-Azure'
+          # - script: |
+          #     az login 
+          #     terraform -version
+          #     terraform init
+          #     sudo apt-get update
+          #     sudo apt-get install lynx
+          #   displayName: terraform validation
+          #   env:
+          #      azureSubscription: 'Alpesh-Personal-Azure'
                
           - script: |
               curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
