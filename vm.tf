@@ -57,7 +57,7 @@ resource "azurerm_virtual_machine" "vm" {
 resource "azurerm_lb" "nginx_lb" {
   name                = "ngnixlb"
   location            = var.location
-  resource_group_name = var.resource_group
+  resource_group_name = "EIC-DevOps-RG"
 
   frontend_ip_configuration {
     name                 = "PublicIPAddress"
