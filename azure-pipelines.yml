@@ -55,12 +55,12 @@ stages:
           #   env:
           #       INFRACOST_API_KEY: $(INFRACOST_API_KEY)
 
-      - job: waitForValidation
-        displayName: Waiting for approval
-        dependsOn: installation
-        pool: server
-        timeoutInMinutes: 5
-        steps:
+      # - job: waitForValidation
+      #   displayName: Waiting for approval
+      #   dependsOn: installation
+      #   pool: server
+      #   timeoutInMinutes: 5
+      #   steps:
           - task: ManualValidation@0
             inputs:
              notifyUsers: 'jagrutigour1799@gmail.com'
