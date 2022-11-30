@@ -36,20 +36,11 @@ stages:
             displayName: Cost Estimation
             env:
               INFRACOST_API_KEY: $(INFRACOST_API_KEY)
-      - job: manual_approval
-        displayName: "Manual Approval"
-        dependsOn: infracostazuredemo
-        steps:
-         - task: ManualValidation@0
-           timeoutInMinutes: 2
-           inputs:
-             instructions: "Hi, please validate"
 
-      - job: terrform_apply
-        displayName: "Terraform Apply"
-        dependsOn: manual_approval  
-        steps:
-          - script: |
-              terraform apply
+          - task: ManualValidation@0
+            timeoutInMinutes: 2
+            inputs:
+             notifyUsers: 'jagrutigour1799@gmail.com'
+             instructions: 'Hi please apply to approve'
+
             
-
