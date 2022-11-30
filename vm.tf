@@ -11,7 +11,7 @@ resource "local_file" "webkey" {
 resource "azurerm_virtual_machine" "vm" {
   name                  = "nginx-vm"
   location              = var.location
-  resource_group_name   = var.resource_group
+  resource_group_name   = "EIC-DevOps-RG"
   network_interface_ids = [azurerm_network_interface.nic.id]
   vm_size               = "Standard_B1s"
 
@@ -53,18 +53,6 @@ resource "azurerm_virtual_machine" "vm" {
     command = "chmod 600 webkey.pem"
   }
 
-  # provisioner "file" {
-  #   source      = "./nginx.sh"
-  #   destination = "/home/nginx.sh"
-  # }
-
-  # provisioner "remote-exec" {
-  #   inline = [
-  #     "chmod +x /tmp/script.sh",
-  #     "/tmp/script.sh args",
-  #   ]
-  # }
-}
 
 resource "azurerm_lb" "nginx_lb" {
   name                = "ngnixlb"
