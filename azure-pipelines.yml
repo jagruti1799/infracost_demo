@@ -39,6 +39,7 @@ stages:
               backendAzureRmStorageAccountName: tfstate
               backendAzureRmContainerName: tfstate
               backendAzureRmKey: tfstate
+              environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
           # - script: |
           #     curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
           #     tar xzf infracost-linux-amd64.tar.gz -C /tmp
