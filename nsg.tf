@@ -1,7 +1,7 @@
 resource "azurerm_network_security_group" "nginxnsg" {
   name                = "nginxnsg"
   location            = var.location
-  resource_group_name = var.resource_group
+  resource_group_name = "EIC-DevOps-RG"
 
   security_rule {
     name                       = "AllowSSH"
