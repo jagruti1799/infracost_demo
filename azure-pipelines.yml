@@ -42,25 +42,25 @@ stages:
               backendAzureRmContainerName: tfstate
               backendAzureRmKey: tfstate
               environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
-          # - script: |
-          #     curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
-          #     tar xzf infracost-linux-amd64.tar.gz -C /tmp
-          #     mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
-          #     infracost --version
-          #   displayName: Install Infracost
+          - script: |
+              curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
+              tar xzf infracost-linux-amd64.tar.gz -C /tmp
+              mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
+              infracost --version
+            displayName: Install Infracost
 
-          # - script: |
-          #     infracost breakdown --show-skipped --path=.
-          #   displayName: Cost estimation 
-          #   env:
-          #       INFRACOST_API_KEY: $(INFRACOST_API_KEY)
+          - script: |
+              infracost breakdown --show-skipped --path=.
+            displayName: Cost estimation 
+            env:
+                INFRACOST_API_KEY: $(INFRACOST_API_KEY)
 
-      # - job: waitForValidation
-      #   displayName: Waiting for approval
-      #   dependsOn: installation
-      #   pool: server
-      #   timeoutInMinutes: 5
-      #   steps:
+      - job: waitForValidation
+        displayName: Waiting for approval
+        dependsOn: installation
+        pool: server
+        timeoutInMinutes: 5
+        steps:
           - task: ManualValidation@0
             inputs:
              notifyUsers: 'jagrutigour1799@gmail.com'
@@ -89,18 +89,18 @@ stages:
               backendAzureRmContainerName: tfstate
               backendAzureRmKey: tfstate
               environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
-          - script: |
-              curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
-              tar xzf infracost-linux-amd64.tar.gz -C /tmp
-              mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
-              infracost --version
-            displayName: Install Infracost
+          # - script: |
+          #     curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
+          #     tar xzf infracost-linux-amd64.tar.gz -C /tmp
+          #     mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
+          #     infracost --version
+          #   displayName: Install Infracost
 
-          - script: |
-              infracost breakdown --show-skipped --path=.
-            displayName: Cost estimation 
-            env:
-                INFRACOST_API_KEY: $(INFRACOST_API_KEY)             
+          # - script: |
+          #     infracost breakdown --show-skipped --path=.
+          #   displayName: Cost estimation 
+          #   env:
+          #       INFRACOST_API_KEY: $(INFRACOST_API_KEY)             
       # - job: AfterValidation
       #   displayName: After validation
       #   dependsOn: waitForValidation
