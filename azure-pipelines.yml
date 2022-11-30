@@ -36,7 +36,7 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'custom'
-              customCommand: 'terraform plan -out tfplan.binary'
+              customCommand: 'terraform plan'
               outputTo: 'console'
               backendServiceArm: 'Alpesh-Personal-Azure'
               backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
