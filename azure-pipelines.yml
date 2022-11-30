@@ -62,7 +62,7 @@ stages:
             displayName: terraform destroy
             inputs:
               provider: 'azurerm'
-              command: 'destroy'
+              command: 'plan'
               backendServiceArm: 'Alpesh-Personal-Azure'
               backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
               backendAzureRmStorageAccountName: tfstate
