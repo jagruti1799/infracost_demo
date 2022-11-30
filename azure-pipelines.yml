@@ -67,45 +67,21 @@ stages:
              notifyUsers: 'jagrutigour1799@gmail.com'
              instructions: 'Please approve to deploy infrastructure'
              onTimeout: 'resume'
-          # - task: TerraformTaskV3@3
-          #   displayName: terraform init
-          #   inputs:
-          #     provider: 'azurerm'
-          #     command: 'init'
-          #     backendServiceArm: 'Alpesh-Personal-Azure'
-          #     backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
-          #     backendAzureRmStorageAccountName: tfstate
-          #     backendAzureRmContainerName: tfstate
-          #     backendAzureRmKey: tfstate
-          # - task: TerraformTaskV3@3
-          #   displayName: terraform plan
-          #   inputs:
-          #     provider: 'azurerm'
-          #     command: 'custom'
-          #     customCommand: 'plan'
-          #     outputTo: 'console'
-          #     backendServiceArm: 'Alpesh-Personal-Azure'
-          #     backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
-          #     backendAzureRmStorageAccountName: tfstate
-          #     backendAzureRmContainerName: tfstate
-          #     backendAzureRmKey: tfstate
-          #     environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
-          # - script: |
-          #     curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
-          #     tar xzf infracost-linux-amd64.tar.gz -C /tmp
-          #     mv /tmp/infracost-linux-amd64 /usr/local/bin/infracost
-          #     infracost --version
-          #   displayName: Install Infracost
 
-          # - script: |
-          #     infracost breakdown --show-skipped --path=.
-          #   displayName: Cost estimation 
-          #   env:
-          #       INFRACOST_API_KEY: $(INFRACOST_API_KEY)             
       - job: AfterValidation
         displayName: After validation
         dependsOn: waitForValidation
         steps:
+          - task: TerraformTaskV3@3
+            displayName: terraform init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'Alpesh-Personal-Azure'
+              backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
+              backendAzureRmStorageAccountName: tfstate
+              backendAzureRmContainerName: tfstate
+              backendAzureRmKey: tfstate        
           - task: TerraformTaskV3@3 
             displayName: terraform destroy
             inputs:
