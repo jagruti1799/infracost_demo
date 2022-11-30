@@ -64,6 +64,16 @@ stages:
         displayName: After validation
         dependsOn: waitForValidation
         steps:
+          - task: TerraformTaskV3@3
+            displayName: terraform init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'Alpesh-Personal-Azure'
+              backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
+              backendAzureRmStorageAccountName: tfstate
+              backendAzureRmContainerName: tfstate
+              backendAzureRmKey: tfstate
           - task: TerraformTaskV3@3 
             inputs:
               provider: 'azurerm'
@@ -74,7 +84,7 @@ stages:
               backendAzureRmContainerName: tfstate
               backendAzureRmKey: tfstate
               environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
-            
+
           - script: |
               infracost breakdown --show-skipped --path=.
             displayName: Cost estimation 
