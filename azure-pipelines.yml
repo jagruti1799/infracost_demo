@@ -37,10 +37,10 @@ stages:
           #      environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
               
           - script: |
-              # az login --service-principal -u ayushjain18@gnu.ac.in --password=qazWSXedc123!@# --tenant 745961a7-d85f-426e-bd60-5485597f872c --allow-no-subscriptions
-              # terraform -version
-              # terraform init
-              # terraform plan -out tfplan.binary
+              az login 
+              terraform -version
+              terraform init
+              terraform plan -out tfplan.binary
               sudo apt-get update
               sudo apt-get install lynx
             displayName: terraform validation
