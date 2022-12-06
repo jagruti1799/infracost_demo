@@ -38,16 +38,11 @@ stages:
         pool: server
         timeoutInMinutes: 5
         steps:
-          # - task: ManualValidation@0
-          #   inputs:
-          #    notifyUsers: 'jagrutigour1799@gmail.com'
-          #    instructions: 'Please approve to deploy infrastructure'
-          #    onTimeout: 'resume'
-          - task: ManualIntervention@8
+          - task: ManualValidation@0
             inputs:
-              instructions: 'pause'
-              emailRecipients: 'jagrutigour1799@gmail.com'
-              onTimeout: 'resume'
+             notifyUsers: 'jagrutigour1799@gmail.com'
+             instructions: 'Please approve to deploy infrastructure'
+             onTimeout: 'resume'
                
       - job: AfterValidation
         displayName: After validation
