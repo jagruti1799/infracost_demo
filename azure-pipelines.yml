@@ -58,17 +58,17 @@ stages:
               backendAzureRmStorageAccountName: tfstate
               backendAzureRmContainerName: tfstate
               backendAzureRmKey: tfstate        
-          - task: TerraformTaskV3@3 
-            displayName: terraform destroy
-            inputs:
-              provider: 'azurerm'
-              command: 'destroy'
-              backendServiceArm: 'Alpesh-Personal-Azure'
-              backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
-              backendAzureRmStorageAccountName: tfstate
-              backendAzureRmContainerName: tfstate
-              backendAzureRmKey: tfstate
-              environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
+          # - task: TerraformTaskV3@3 
+          #   displayName: terraform destroy
+          #   inputs:
+          #     provider: 'azurerm'
+          #     command: 'destroy'
+          #     backendServiceArm: 'Alpesh-Personal-Azure'
+          #     backendAzureRmResourceGroupName: 'EIC-DevOps-RG'
+          #     backendAzureRmStorageAccountName: tfstate
+          #     backendAzureRmContainerName: tfstate
+          #     backendAzureRmKey: tfstate
+          #     environmentServiceNameAzureRM: 'Alpesh-Personal-Azure'
 
 
 
